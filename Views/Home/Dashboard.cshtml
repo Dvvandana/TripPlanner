@@ -1,0 +1,60 @@
+@model DashboardView
+<div class="container">
+    <div class="navbar">
+        <p>Hello @Model.loggedUser.FirstName</p>
+        <p><a href="/trips/new">Add A New Trip </a></p>
+        <p><a href="/logOut">LogOut</a></p>
+    </div>
+    <div class="row">
+        <p>Your Trips:</p>
+        <table class="table">
+            <thead>
+                <th>Destination</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Plan</th>
+                <th>Action</th>
+            </thead>
+            @foreach (Tourist tour in Model.loggedUser.JoiningTrips)
+            {
+                <tr>
+                    <td ><a href="trip/detail/@tour.JoiningTripId">@tour.JoiningTrip.Destination</a></td>
+                    <td>@tour.JoiningTrip.StartDate</td>
+                    <td>@tour.JoiningTrip.EndDate</td>
+                    <td>@tour.JoiningTrip.Plan</td>
+                    <td>
+                    @if(Model.loggedUser.createdPlans.Contains(tour.JoiningTrip)){
+                        <a href="/trips/delete/@tour.JoiningTrip.TripId">Remove</a>
+                        <a href="/trips/edit/@tour.JoiningTrip.TripId">Edit</a>
+                    } 
+                    @if(Model.loggedUser.JoiningTrips.Contains(tour)){
+                        <a href="/trips/cancel/@tour.TouristId">Cancel</a>
+                    }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="row">
+        <p>Other People's Trips</p>
+        <table class="table">
+            <thead>
+                <th>Destination</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Plan</th>
+                <th>Action</th>
+            </thead>
+            @foreach (Trip trip in Model.OthersTrips)
+            {
+                <tr>
+                    <td><a href="trip/detail/@trip.TripId">@trip.Destination</a></td>
+                    <td>@trip.StartDate</td>
+                    <td>@trip.EndDate</td>
+                    <td>@trip.Plan</td>
+                    <td><a href="trips/join/@trip.TripId">Join</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

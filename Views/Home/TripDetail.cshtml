@@ -1,0 +1,21 @@
+@model Trip
+<div class="container">
+    <div class="navbar">
+        
+        <p><a href="/dashboard">Dashboard </a></p>
+        <p><a href="/logOut">LogOut</a></p>
+    </div>
+    <div class="container">
+        <h1>@Model.Destination
+        </h1>
+        <p>Start Date: @Model.StartDate</p>
+        <p>Start Date: @Model.EndDate</p>
+        <p>Plan: @Model.Plan</p>
+        <p>Created By: @Model.Planner.FirstName</p>
+        <p>People Who have joined the Trip</p>
+        @foreach (Tourist tour in Model.Tourists)
+        {
+            <p><i>@tour.Traveller.FirstName @tour.Traveller.LastName</i></p>
+        }
+    </div>
+</div>
